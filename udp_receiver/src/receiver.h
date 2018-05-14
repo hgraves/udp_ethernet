@@ -70,6 +70,17 @@ private slots:
 private:
     QLabel *statusLabel = nullptr;
     QUdpSocket *udpSocket = nullptr;
+
+    struct packet {
+        double lat;
+        double lon;
+        double alt;
+        double yaw;
+        double pitch;
+        double roll;
+        double battery;
+    };
+
 };
 
 #endif

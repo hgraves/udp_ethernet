@@ -77,17 +77,15 @@ private:
     QTimer timer;
     int messageNo = 1;
 
-#pragma pack(push, 1)
     struct packet {
         double lat;
         double lon;
-        float alt;
-        float yaw;
-        float pitch;
-        float roll;
-        float battery;
+        double alt;
+        double yaw;
+        double pitch;
+        double roll;
+        double battery;
     };
-#pragma pack(pop)
 
 };
 

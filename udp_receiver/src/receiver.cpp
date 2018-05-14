@@ -84,10 +84,21 @@ Receiver::Receiver(QWidget *parent)
 
 void Receiver::processPendingDatagrams()
 {
+    packet dataPacket;
+    double *data;
+
     QByteArray datagram;
+    data = reinterpret_cast<double*>(datagram.data());
+
     while (udpSocket->hasPendingDatagrams()) {
         datagram.resize(int(udpSocket->pendingDatagramSize()));
         udpSocket->readDatagram(datagram.data(), datagram.size());
+
+        QDataStream in(&datagram, QIODevice::ReadOnly);
+        in >> dataPacket.lat >> dataPacket.lon >> dataPacket.alt >> dataPacket.yaw >> dataPacket.pitch >> dataPacket.roll >> dataPacket.battery;
+
+//        dataPacket.lat = *reinterpret_cast<const double*>(datagram.data());
+
         statusLabel->setText(tr("Received datagram: \"%1\"")
                              .arg(datagram.constData()));
     }

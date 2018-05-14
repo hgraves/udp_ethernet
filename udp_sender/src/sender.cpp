@@ -102,10 +102,20 @@ void Sender::broadcastDatagram()
     dataPacket.roll = messageNo;
     dataPacket.battery = 12.4;
 
-    datagram = "PACK";
-    datagram.append(reinterpret_cast<const char*>(&dataPacket.lat), sizeof(dataPacket.lat));
+    QDataStream out(&datagram, QIODevice::WriteOnly);
+    out << dataPacket.lat << dataPacket.lon << dataPacket.alt << dataPacket.yaw << dataPacket.pitch << dataPacket.roll << dataPacket.battery;
 
-    statusLabel->setText(tr("Now broadcasting datagram %1").arg(datagram.size()));
+//    datagram = "";
+//    datagram.append(reinterpret_cast<const char*>(&dataPacket.lat), sizeof(dataPacket.lat));
+//    datagram.append(reinterpret_cast<const char*>(&dataPacket.lon), sizeof(dataPacket.lon));
+//    datagram.append(reinterpret_cast<const char*>(&dataPacket.alt), sizeof(dataPacket.alt));
+//    datagram.append(reinterpret_cast<const char*>(&dataPacket.yaw), sizeof(dataPacket.yaw));
+//    datagram.append(reinterpret_cast<const char*>(&dataPacket.pitch), sizeof(dataPacket.pitch));
+//    datagram.append(reinterpret_cast<const char*>(&dataPacket.roll), sizeof(dataPacket.roll));
+//    datagram.append(reinterpret_cast<const char*>(&dataPacket.battery), sizeof(dataPacket.battery));
+//    datagram.append(QByteArray::number(messageNo));
+
+    statusLabel->setText(tr("Now broadcasting datagram %1").arg(messageNo));
 
 
 //    QByteArray datagram = "Broadcast message " + QByteArray::number(messageNo);
